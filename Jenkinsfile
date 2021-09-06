@@ -9,12 +9,12 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
-        NEXUS_REPOSITORY = "vprofile-release"
-        NEXUS_REPO_ID    = "vprofile-release"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
+        NEXUS_URL = "3.139.67.82:8081"
+        NEXUS_REPOSITORY = "KRANTHI1430"
+	    NEXUS_REPO_ID    = "KRANTHI1430"
+        NEXUS_CREDENTIAL_ID = "nexus"
         ARTVERSION = "${env.BUILD_ID}"
-    }
+	}
 
     stages{
 
@@ -66,14 +66,15 @@ pipeline {
 
             steps {
                 withSonarQubeEnv('sonar-pro') {
-                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=61b9d1d841408f1c2c1b2ef998b1d87dc3cd704e \
                    -Dsonar.projectName=vprofile-repo \
                    -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
+                   -Dsonar.sources=. / \
                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
                    -Dsonar.junit.reportsPath=target/surefire-reports/ \
                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+
                 }
 
                 timeout(time: 10, unit: 'MINUTES') {
